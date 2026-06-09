@@ -34,7 +34,7 @@ Hasta ahora se completó:
 6. Generación de predicciones out-of-fold sobre train.
 7. Cálculo de métricas globales.
 8. Análisis de métricas por cohorte.
-9. Selección de la cohorte problemática a pedir al profesor.
+9. Selección de la cohorte problemática a pedir.
 
 ## Baseline elegido
 
@@ -70,5 +70,3 @@ Verdaderos positivos = 16
 ```
 
 El modelo detecta solamente alrededor del 12% de las cancelaciones reales de esta cohorte.
-
-::: 
