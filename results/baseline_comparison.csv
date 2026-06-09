@@ -1,0 +1,3 @@
+model,best_params,mean_cv_f1,std_cv_f1,mean_cv_recall,mean_cv_precision,mean_cv_accuracy
+random_forest,"{'class_weight': 'balanced_subsample', 'max_depth': 15, 'min_samples_leaf': 1}",0.7474664442177927,0.007085801864422361,0.6925795053003533,0.8120424403281117,0.8267015706806283
+logistic_regression,"{'C': 1.0, 'class_weight': 'balanced'}",0.7150655129188989,0.013202850388435348,0.7385159010600706,0.693623907238117,0.7818062827225131

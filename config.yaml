@@ -1,0 +1,36 @@
+project:
+  random_state: 42
+  target: canceled_job
+
+data:
+  raw_path: data/raw/gpu_resource_reservations.csv
+  train_path: data/processed/train.csv
+  test_path: data/processed/test.csv
+  train_transformed_path: data/processed/train_transformed.csv
+  test_transformed_path: data/processed/test_transformed.csv
+  test_size: 0.20
+
+preprocessing:
+  transformer_path: models/preprocessor.joblib
+
+validation:
+  n_splits: 5
+  primary_metric: f1
+  secondary_metric: recall
+
+cohorts:
+  columns:
+    - client_type
+    - service_tier
+    - reserved_gpu_type
+
+baseline:
+  comparison_path: results/baseline_comparison.csv
+  model_path: models/baseline.joblib
+
+evaluation:
+  global_metrics_path: results/global_validation_metrics.csv
+  predictions_path: results/oof_predictions.csv
+  cohort_metrics_path: results/cohort_metrics.csv
+  false_positives_path: results/false_positives.csv
+  false_negatives_path: results/false_negatives.csv
