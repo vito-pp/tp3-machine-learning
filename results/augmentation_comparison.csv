@@ -1,0 +1,4 @@
+estrategia,global_accuracy,global_precision,global_recall,global_f1,global_fp,global_fn,global_tp,global_n,cohort_accuracy,cohort_precision,cohort_recall,cohort_f1,cohort_fp,cohort_fn,cohort_tp,cohort_n
+baseline,0.8255,0.8051,0.6979,0.7477,478,855,1975,7640,0.8408,0.6,0.0909,0.1579,8,120,12,804
+real_data,0.8256,0.7968,0.6898,0.7394,514,906,2015,8140,0.832,0.7692,0.1099,0.1923,3,81,10,500
+smote,0.8474,0.8819,0.8023,0.8402,517,951,3859,9620,0.8557,0.7353,0.1894,0.3012,9,107,25,804
