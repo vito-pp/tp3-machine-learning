@@ -1,0 +1,26 @@
+{
+  "strategy": "smote",
+  "target": "canceled_job",
+  "cohort_column": "client_type",
+  "cohort_value": "internal_research",
+  "model": "RandomForestClassifier",
+  "hyperparameters": {
+    "n_estimators": 200,
+    "max_depth": 15,
+    "min_samples_leaf": 1,
+    "class_weight": "balanced_subsample",
+    "random_state": 42
+  },
+  "drop_columns": [
+    "total_gpu_hours",
+    "total_processes",
+    "request_week",
+    "queue_wait_time"
+  ],
+  "notes": [
+    "This is the final model trained after strategy selection.",
+    "The test set is used here once for final evaluation.",
+    "The saved final model includes preprocessing and the classifier.",
+    "If strategy is SMOTE, SMOTE is only used during fit, not during predict."
+  ]
+}

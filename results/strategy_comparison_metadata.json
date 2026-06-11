@@ -1,0 +1,13 @@
+{
+  "target": "canceled_job",
+  "cohort_column": "client_type",
+  "cohort_value": "internal_research",
+  "selection_rule": "Best global_f1, with cohort_f1 as tie-breaker.",
+  "recommended_strategy": "smote",
+  "notes": [
+    "All strategies are compared with the same stratified CV splits over the original train set.",
+    "SMOTE is applied inside each fold only to the sub-train split.",
+    "The validation fold always contains real, non-synthetic data.",
+    "The test set is not used in this comparison."
+  ]
+}
