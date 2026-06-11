@@ -15,6 +15,7 @@ Predecir si una reserva de infraestructura GPU será cancelada antes de su ejecu
 ### Linux / macOS
 
 ```bash
+
 bash setup_linux.sh
 ```
 
@@ -74,11 +75,9 @@ tp3-machine-learning/
 | 4 | Entrenamiento baseline con k-fold CV (k=5) | `train_baseline.py` | `models/baseline.joblib`, `results/baseline_comparison.csv` |
 | 5 | OOF predictions + análisis de errores por cohorte | `analyze_cohorts.py` | `results/oof_predictions.csv`, `results/cohort_metrics.csv`, FP/FN |
 | 6 | Selección de cohorte problemática | — | `client_type = internal_research` |
+| 7 | Datos reales de cohorte nuevos + SMOTE | — | `data_augmentation.py` |
 
 ### Pendiente
-
-- [ ] Curvas de aprendizaje (`learning_curves.py`)
-- [ ] Datos reales de cohorte + SMOTE (`data_augmentation.py`)
 - [ ] Modelo final + función predictora (`train_final_model.py`)
 
 ---
