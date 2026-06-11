@@ -1,2 +1,2 @@
 strategy,cohort_column,cohort_value,n,accuracy,precision,recall,f1,tn,fp,fn,tp
-smote,client_type,internal_research,205,0.8878048780487805,0.5,0.043478260869565216,0.08,181,1,22,1
+real_data,client_type,internal_research,205,0.8926829268292683,0.6666666666666666,0.08695652173913043,0.15384615384615385,181,1,21,2

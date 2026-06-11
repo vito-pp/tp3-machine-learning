@@ -1,5 +1,5 @@
 {
-  "strategy": "smote",
+  "strategy": "real_data",
   "target": "canceled_job",
   "cohort_column": "client_type",
   "cohort_value": "internal_research",

@@ -17,14 +17,10 @@ from sklearn.metrics import accuracy_score, confusion_matrix, f1_score, precisio
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
-try:
-    from imblearn.over_sampling import SMOTE
-    from imblearn.pipeline import Pipeline as ImbPipeline
-except ImportError as exc:
-    raise ImportError(
-        "Missing dependency: imbalanced-learn. Install it with: "
-        "python -m pip install imbalanced-learn"
-    ) from exc
+from src.cohort_smote_model import (
+    CohortSmoteRandomForest,
+    apply_smote_to_full_train,
+)
 
 
 TARGET = "canceled_job"
@@ -91,7 +87,53 @@ def build_preprocessor(X: pd.DataFrame) -> ColumnTransformer:
     )
 
 
+class SimpleSmoteRandomForest:
+    def __init__(self, X_reference: pd.DataFrame) -> None:
+        self.preprocessor = build_preprocessor(X_reference)
+        self.model = RandomForestClassifier(
+            n_estimators=200,
+            max_depth=15,
+            min_samples_leaf=1,
+            class_weight="balanced_subsample",
+            random_state=RANDOM_STATE,
+            n_jobs=-1,
+        )
+        self.smote_stats_: dict[str, int] | None = None
+
+    def fit(self, X: pd.DataFrame, y: pd.Series) -> "SimpleSmoteRandomForest":
+        X_prepared = self.preprocessor.fit_transform(X)
+        X_aug, y_aug = apply_smote_to_full_train(
+            X_train=X_prepared,
+            y_train=y.to_numpy(),
+            random_state=RANDOM_STATE,
+        )
+        self.smote_stats_ = {
+            "train_original_n": int(len(y)),
+            "train_resampled_n": int(len(y_aug)),
+            "synthetic_added_n": int(len(y_aug) - len(y)),
+        }
+
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            self.model.fit(X_aug, y_aug)
+        return self
+
+    def predict(self, X: pd.DataFrame) -> np.ndarray:
+        X_clean = X.drop(columns=[TARGET], errors="ignore")
+        return self.model.predict(self.preprocessor.transform(clean_features(X_clean)))
+
+    def predict_proba(self, X: pd.DataFrame) -> np.ndarray:
+        X_clean = X.drop(columns=[TARGET], errors="ignore")
+        return self.model.predict_proba(self.preprocessor.transform(clean_features(X_clean)))
+
+
 def build_model_pipeline(X: pd.DataFrame, strategy: str) -> Any:
+    if strategy == "smote_cohort":
+        return CohortSmoteRandomForest()
+
+    if strategy == "smote":
+        return SimpleSmoteRandomForest(X)
+
     preprocessor = build_preprocessor(X)
 
     model = RandomForestClassifier(
@@ -102,15 +144,6 @@ def build_model_pipeline(X: pd.DataFrame, strategy: str) -> Any:
         random_state=RANDOM_STATE,
         n_jobs=-1,
     )
-
-    if strategy == "smote":
-        return ImbPipeline(
-            steps=[
-                ("preprocessor", preprocessor),
-                ("smote", SMOTE(random_state=RANDOM_STATE)),
-                ("model", model),
-            ]
-        )
 
     return Pipeline(
         steps=[
@@ -240,6 +273,8 @@ def main() -> None:
             "If strategy is SMOTE, SMOTE is only used during fit, not during predict.",
         ],
     }
+    if hasattr(final_model, "smote_stats_") and getattr(final_model, "smote_stats_", None):
+        metadata["smote_stats"] = getattr(final_model, "smote_stats_")
     FINAL_METADATA_PATH.write_text(json.dumps(metadata, indent=2), encoding="utf-8")
 
     print("\nFinal test metrics:")

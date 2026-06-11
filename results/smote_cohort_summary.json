@@ -1,0 +1,12 @@
+{
+  "strategy": "smote_cohort",
+  "folds": 5,
+  "train_fold_n_mean": 6112.0,
+  "cohort_fold_n_mean": 643.2,
+  "cohort_original_n_mean": 643.2,
+  "cohort_resampled_n_mean": 1075.2,
+  "cohort_synthetic_total": 2160,
+  "cohort_synthetic_mean": 432.0,
+  "cohort_synthetic_min": 427,
+  "cohort_synthetic_max": 440
+}

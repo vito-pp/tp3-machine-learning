@@ -3,7 +3,7 @@
   "cohort_column": "client_type",
   "cohort_value": "internal_research",
   "selection_rule": "Best global_f1, with cohort_f1 as tie-breaker.",
-  "recommended_strategy": "smote",
+  "recommended_strategy": "real_data",
   "notes": [
     "All strategies are compared with the same stratified CV splits over the original train set.",
     "SMOTE is applied inside each fold only to the sub-train split.",

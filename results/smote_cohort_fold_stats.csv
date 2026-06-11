@@ -1,0 +1,6 @@
+strategy,fold,train_fold_n,cohort_fold_n,cohort_original_n,cohort_original_minority_n,cohort_original_majority_n,cohort_resampled_n,cohort_synthetic_n,fold_total_n_after_smote
+smote_cohort,1,6112,636,636,98,538,1076,440,6552
+smote_cohort,2,6112,654,654,110,544,1088,434,6546
+smote_cohort,3,6112,636,636,103,533,1066,430,6542
+smote_cohort,4,6112,639,639,105,534,1068,429,6541
+smote_cohort,5,6112,651,651,112,539,1078,427,6539
